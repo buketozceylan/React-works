@@ -1,7 +1,35 @@
-// 1.Yöntem => React - CDN (eksik araçlar) - Babel
-// 2.Yöntem => create-react-app
-
 "use strict";
+
+var products = [{
+    name: "IPhone 16",
+    price: 100000,
+    description: "Nice product awesome",
+    colors: ["red", "white", "black", "purple"]
+}, {
+    name: "IPhone 20",
+    price: 170000,
+    description: "Nice product awesome",
+    colors: ["red", "white", "black"]
+}];
+
+var product = {
+    name: "IPhone 16",
+    price: 100000,
+    description: "Nice product awesome",
+    colors: ["red", "white", "black", "purple"]
+};
+
+function formatPrice(product) {
+    return product.price + " TL";
+}
+
+function printDescription(product) {
+    if (product) {
+        return product;
+    } else {
+        return "";
+    }
+}
 
 var template = React.createElement(
     "div",
@@ -9,37 +37,45 @@ var template = React.createElement(
     React.createElement(
         "h1",
         { id: "header" },
-        "My first react application"
+        "Product list"
     ),
-    React.createElement(
-        "div",
-        null,
-        "Lorem ipsum dolor sit amet."
-    ),
-    React.createElement(
-        "ul",
-        null,
-        React.createElement(
-            "li",
-            null,
-            "Lorem, ipsum."
-        ),
-        React.createElement(
-            "li",
-            null,
-            "Lorem, ipsum."
-        ),
-        React.createElement(
-            "li",
-            null,
-            "Lorem, ipsum."
-        ),
-        React.createElement(
-            "li",
-            null,
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur commodi quaerat temporibus debitis reiciendis magni officia alias ipsam nobis odio suscipit, voluptate eos cum voluptates numquam rerum ullam autem eligendi!"
-        )
-    )
+    products.map(function (product) {
+        return React.createElement(
+            "div",
+            { className: "product-details" },
+            React.createElement(
+                "h2",
+                null,
+                product.name
+            ),
+            React.createElement(
+                "p",
+                null,
+                formatPrice(product)
+            ),
+            React.createElement(
+                "p",
+                null,
+                product.description && product.description
+            ),
+            product.colors.length > 0 ? React.createElement(
+                "p",
+                null,
+                "renk seceneleri mevcut"
+            ) : "",
+            React.createElement(
+                "ul",
+                null,
+                product.colors.map(function (color, index) {
+                    return React.createElement(
+                        "li",
+                        { key: index },
+                        color
+                    );
+                })
+            )
+        );
+    })
 );
 
 var root = ReactDOM.createRoot(document.getElementById("root"));
